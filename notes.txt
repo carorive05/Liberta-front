@@ -1,0 +1,4 @@
+Recommended two-terminal workflow:
+
+Terminal 1: npx tsc --watch -> auto-compiles on save
+Terminal 2: node --watch dist/index.js -> auto-reruns on compile
