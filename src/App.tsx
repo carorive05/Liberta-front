@@ -12,11 +12,13 @@ import DetailUI from './ui/DetailDisplay';
 import KeepUI from './ui/KeepDisplay';
 import SearchUI from './ui/SearchDisplay';
 import SettingsUI from './ui/SettingsDisplay';
+import { AuthDisplay } from './ui/AuthDisplay';
 
 export default function App() {
     return (
             <Routes>
-                <Route path="/" element={<HomeUI />} />
+                <Route path="/" element={<HomeUI/>} />
+                <Route path="/login" element={<AuthDisplay />} />
                 <Route path="/detail" element={<DetailUI />} />
                 <Route path="/keep" element={<KeepUI />} />
                 <Route path="/search" element={<SearchUI />} />
