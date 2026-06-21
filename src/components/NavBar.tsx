@@ -6,13 +6,14 @@ const links = [
   { name: "Inicio", path: "/" },
   { name: "Buscar", path: "/search" },
   { name: "Guardados", path: "/keep" },
-  { name: "Mi itinerario", path: "/itinerary" },
+  { name: "Mi itinerario", path: "/intinerary" },
+  //{ name: "Detalles", path:"/detail"}
 ];
 
 export function Navbar() {
 
   return (
-    <nav className="bg-white border-b-2 border-[#085041] px-6 h-14 flex items-center justify-between">
+    <nav className="bg-white border-b-2 border-gray-200 px-6 h-14 flex items-center justify-between">
 
       <span className="text-[#085041] font-medium text-xl">liberta</span>
 

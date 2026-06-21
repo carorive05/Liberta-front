@@ -12,6 +12,7 @@ import DetailUI from './ui/DetailDisplay';
 import KeepUI from './ui/KeepDisplay';
 import SearchUI from './ui/SearchDisplay';
 import SettingsUI from './ui/SettingsDisplay';
+import IntineraryUI from "./ui/ItineraryDisplay";
 import { AuthDisplay } from './ui/AuthDisplay';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
                 <Route path="/keep" element={<KeepUI />} />
                 <Route path="/search" element={<SearchUI />} />
                 <Route path="/settings" element={<SettingsUI />} />
+                <Route path="/intinerary" element={<IntineraryUI />}/>
             </Routes>
 
     )
