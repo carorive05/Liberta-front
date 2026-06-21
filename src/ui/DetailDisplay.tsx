@@ -5,11 +5,11 @@ import { Theme } from "@radix-ui/themes";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 
 import { Navbar } from "../components/NavBar";
-import ActivityTop, { AccesibilityProps } from "../components/ActivityTop";
+import ActivityTop from "../components/ActivityTop";
 import ActivityInfo from "../components/ActivityInfo";
 import RatingsReviews, { Review, RatingDistribution } from "../components/RatingsReviews";
 
-import { useLocation, useNavigate  } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CardProps } from "../components/Card";
 
 
@@ -51,17 +51,17 @@ export default function DetailDisplay() {
     return (
         <Theme>
             <Navbar />
-            <Box p="6" style={{ backgroundColor: "#f0f0f0", minHeight: "100vh" }}>
-                <section className="border-b-2 border-gray-200">
+            <Box p="6" style={{ backgroundColor: "#F8F9FA", minHeight: "100vh" }}>
+                <section className="border-b-2 border-gray-200 justify-end">
 
-                    <div className="flex justify-end items-center-safe gap-2" >
-
-                            <MoveLeft color="#1D9E75" />
-                            <p className="font-light text-[#085041] text-m">
-                                Volver a todos los resultados
-                            </p>
-
-
+                    <div
+                        className="flex justify-end items-center gap-2 cursor-pointer"
+                        onClick={() => navigate(-1)}
+                    >
+                        <MoveLeft color="#1D9E75" />
+                        <p className="font-light text-[#085041] text-sm">
+                            Volver a todos los resultados
+                        </p>
                     </div>
 
                 </section>
@@ -69,7 +69,7 @@ export default function DetailDisplay() {
                 <div className="max-w-2xl mx-auto">
 
                     <ActivityTop
-                         imageSrc={card.imageSrc}
+                        imageSrc={card.imageSrc}
                         title={card.title}
                         category={card.category}
                         distance={card.distance}

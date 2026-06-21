@@ -93,14 +93,14 @@ export function ReviewCard({ review }: { review: Review }) {
           <div>
             <p className="text-sm font-semibold text-gray-800 leading-tight">{review.name}</p>
             {review.badge && (
-              <p className="text-xs text-gray-400 mt-0.5">{review.badge}</p>
+              <p className="text-xs text-[#6B6B68] mt-0.5">{review.badge}</p>
             )}
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           <StarRating value={review.rating} size={13} />
           {review.timeAgo && (
-            <span className="text-xs text-gray-400 whitespace-nowrap">{review.timeAgo}</span>
+            <span className="text-xs text-[#6B6B68] whitespace-nowrap">{review.timeAgo}</span>
           )}
         </div>
       </div>
@@ -127,7 +127,7 @@ export default function RatingsReviews({
             {averageRating.toFixed(1)}
           </span>
           <StarRating value={averageRating} size={18} />
-          <span className="text-xs text-gray-400 text-center mt-0.5">{totalLabel}</span>
+          <span className="text-xs text-[#6B6B68] text-center mt-0.5">{totalLabel}</span>
         </div>
 
         <div className="flex-1 flex flex-col gap-2 pt-1">

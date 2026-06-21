@@ -37,7 +37,7 @@ export default function ActivityInfo({
       <h2 className="text-lg font-semibold mb-2">Sobre esta actividad</h2>
       <p className="text-sm text-gray-600">{description}</p>
 
-      <div className="grid grid-cols-2 gap-3 mt-3 mb-2">
+      <div className="grid grid-cols-2 gap-3 mt-3 mb-2 text-[#6B6B68]">
         <InfoCard icon={CircleDollarSign} label="Precio"       value={`₡${price.toLocaleString()} / persona`} />
         <InfoCard icon={Clock}           label="Horario"       value={schedule} />
         <InfoCard icon={Calendar}        label="Reserva"       value={reservation} />

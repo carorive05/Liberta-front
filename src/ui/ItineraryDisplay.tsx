@@ -8,7 +8,7 @@ export default function IntineraryDisplay() {
     return (
         <Theme>
             <Navbar />
-            <Box p="6" style={{ backgroundColor: "#f0f0f0", minHeight: "100vh" }}>
+            <Box p="6" style={{ backgroundColor: "#F8F9FA", minHeight: "100vh" }}>
                 <h1> Intinerario de actividades </h1>
                 
             </Box>

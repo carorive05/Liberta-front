@@ -54,7 +54,7 @@ export function Cards(props: CardProps) {
 
     const { imageSrc, title, category, distance, price, rating, horizontal = false, accesibility, ubication,description, schedule,reservation,maxGroup } = props;
 
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleClick = () => {
         navigate("/detail", { state: props });
@@ -108,16 +108,16 @@ export function Cards(props: CardProps) {
 
                 <Flex className="flex-col p-2 pl-4 gap-4 w-full">
                     <div className="flex items-center justify-between">
-                        <Text className="text-sm text-gray-800">{category}</Text>
-                        <Text className="text-sm text-gray-800">⭐ {rating}</Text>
+                        <Text className="text-sm text-[#6B6B68]">{category}</Text>
+                        <Text className="text-sm text-[#6B6B68]">⭐ {rating}</Text>
                     </div>
                     <Text className="text-lg font-bold">{title}</Text>
 
                         {accesibilityData}
 
                     <div className="flex items-center justify-between">
-                        <Text className="text-xs text-gray-800">{distance} km</Text>
-                        <Text className="text-xs text-gray-800">₡{price}/ persona</Text>
+                        <Text className="text-xs text-[#6B6B68]">{distance} km</Text>
+                        <Text className="text-xs text-[#6B6B68]">₡{price}/ persona</Text>
                     </div>
                 </Flex>
             </Card>

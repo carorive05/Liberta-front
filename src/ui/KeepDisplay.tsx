@@ -77,19 +77,12 @@ export default function KeepDisplay() {
     return (
         <Theme>
             <Navbar />
-            <Box p="6" style={{ backgroundColor: "#f0f0f0", minHeight: "100vh" }}>
+            <Box p="6" style={{ backgroundColor: "#F8F9FA", minHeight: "100vh" }}>
                 <div className="pb-3">
                     <h1 className="font-semibold text-lg"> Actividades guardadas </h1>
                     <p className="text-gray-600">Tus destinos favoritos para explorar Costa Rica de manera accesible </p>
                 </div>
 
-                {/*
-<Grid columns="1" gap="4">
-  {cards.map(card => (
-    <Cards key={card.id} horizontal={true} {...card} />
-  ))}
-</Grid>
-*/}
                 <Flex direction="column" gap="4">
                     {cards.map(card => (
                         <Cards key={card.id} horizontal={true} {...card} />

@@ -9,12 +9,12 @@ export default function SearchDisplay() {
     return (
         <Theme >
             <Navbar />
-            <Box p="4" style={{ backgroundColor: "#f0f0f0", minHeight: "100vh" }}>
+            <Box p="4" style={{ backgroundColor: "#F8F9FA", minHeight: "100vh" }}>
 
                 <div className="flex flex-col justify-self-center-safe items-center gap-4 text-center pt-30">
                     <h1 className="font-semibold text-2xl"> Buscar actividades </h1>
 
-                    <p className="font-ligth text-s">Encuentra actividades accesibles en todo Costa Rica </p>
+                    <p className="font-ligth text-s text-[#6B6B68]">Encuentra actividades accesibles en todo Costa Rica </p>
 
                     <div className="flex items-center gap-2 border border-gray-400 bg-gray-50 rounded-4xl px-3 py-1.5 w-80 h-10">
                         <Search size={14} className="text-gray-400" />

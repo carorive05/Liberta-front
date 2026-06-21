@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 
 import { Theme } from "@radix-ui/themes";
 import { Box, Flex, Grid } from "@radix-ui/themes";
@@ -76,6 +77,9 @@ const cards: CardProps[] = [
 ];
 
 export default function HomeDisplay() {
+
+    const [isGrid, setIsGrid] = useState(true);
+
     return (
         <Theme>
             <Navbar />
@@ -106,29 +110,32 @@ export default function HomeDisplay() {
             </section>
 
             <section>
-                <Box p="4" style={{ backgroundColor: "#f0f0f0", minHeight: "100vh" }}>
+                <Box p="4" style={{ backgroundColor: "#F8F9FA", minHeight: "100vh" }}>
 
                     <div className="flex justify-between p-2 pb-4">
-                        <div>
+                        <div className="text-[#6B6B68]">
                             <p>47 lugares cerca de San Jose </p>
                         </div>
 
                         <div className="flex justify-between gap-2">
-                            <LayoutGrid className="border-2 border-gray-300 bg-gray-300 " color="#1D9E75" />
-
-                            <List color="#1D9E75" />
+                            <LayoutGrid
+                                className={`border-2 cursor-pointer p-0.5 ${isGrid ? "bg-[#E1F5EE] border-[#1D9E75]" : "bg-white border-gray-200"}`}
+                                color="#1D9E75"
+                                onClick={() => setIsGrid(true)}
+                            />
+                            <List
+                                className={`border-2 cursor-pointer p-0.5 ${!isGrid ? "bg-[#E1F5EE] border-[#1D9E75]" : "bg-white border-gray-200"}`}
+                                color="#1D9E75"
+                                onClick={() => setIsGrid(false)}
+                            />
                         </div>
                     </div>
 
-
-                    <Grid columns="2" gap="4">
+                    <Grid columns={isGrid ? "2" : "1"} gap="4">
                         {cards.map(card => (
-                            <Cards key={card.id} horizontal={false} {...card} />
-
+                            <Cards key={card.id} horizontal={!isGrid} {...card} />
                         ))}
                     </Grid>
-
-
 
                 </Box>
             </section>
