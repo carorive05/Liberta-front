@@ -11,23 +11,23 @@ const accesibilityConfig: Record<
   Record<LevelAccesibility, { label: string; levelLabel: string; icon: React.ElementType; color: string }>
 > = {
   visual: {
-    high:   { label: "Visual",   levelLabel: "Acceso completo", icon: Eye,           color: "bg-[#E1F5EE] text-[#085041]" },
-    medium: { label: "Visual",   levelLabel: "Acceso parcial",  icon: Eye,           color: "bg-[#faeeda] text-[#633806]" },
-    low:    { label: "Visual",   levelLabel: "Sin acceso",      icon: Eye,           color: "bg-[#FCEBEB] text-[#791F1F]" },
+    high: { label: "Visual", levelLabel: "Acceso completo", icon: Eye, color: "bg-[#E1F5EE] text-[#085041]" },
+    medium: { label: "Visual", levelLabel: "Acceso parcial", icon: Eye, color: "bg-[#faeeda] text-[#633806]" },
+    low: { label: "Visual", levelLabel: "Sin acceso", icon: Eye, color: "bg-[#FCEBEB] text-[#791F1F]" },
   },
   motor: {
-    high:   { label: "Motora",   levelLabel: "Acceso completo", icon: Accessibility, color: "bg-[#E1F5EE] text-[#085041]" },
-    medium: { label: "Motora",   levelLabel: "Acceso parcial",  icon: Accessibility, color: "bg-[#faeeda] text-[#633806]" },
-    low:    { label: "Motora",   levelLabel: "Sin acceso",      icon: Accessibility, color: "bg-[#FCEBEB] text-[#791F1F]" },
+    high: { label: "Motora", levelLabel: "Acceso completo", icon: Accessibility, color: "bg-[#E1F5EE] text-[#085041]" },
+    medium: { label: "Motora", levelLabel: "Acceso parcial", icon: Accessibility, color: "bg-[#faeeda] text-[#633806]" },
+    low: { label: "Motora", levelLabel: "Sin acceso", icon: Accessibility, color: "bg-[#FCEBEB] text-[#791F1F]" },
   },
   auditory: {
-    high:   { label: "Auditiva", levelLabel: "Acceso completo", icon: Ear,           color: "bg-[#E1F5EE] text-[#085041]" },
-    medium: { label: "Auditiva", levelLabel: "Acceso parcial",  icon: Ear,           color: "bg-[#faeeda] text-[#633806]" },
-    low:    { label: "Auditiva", levelLabel: "Sin acceso",      icon: Ear,           color: "bg-[#FCEBEB] text-[#791F1F]" },
+    high: { label: "Auditiva", levelLabel: "Acceso completo", icon: Ear, color: "bg-[#E1F5EE] text-[#085041]" },
+    medium: { label: "Auditiva", levelLabel: "Acceso parcial", icon: Ear, color: "bg-[#faeeda] text-[#633806]" },
+    low: { label: "Auditiva", levelLabel: "Sin acceso", icon: Ear, color: "bg-[#FCEBEB] text-[#791F1F]" },
   },
 };
 
-interface ActivityHeroProps {
+interface ActivityTopProps {
   imageSrc: string;
   title: string;
   category: string;
@@ -38,7 +38,7 @@ interface ActivityHeroProps {
   onSave?: () => void;
 }
 
-export default function ActivityHero({
+export default function ActivityTop({
   imageSrc,
   title,
   category,
@@ -47,10 +47,10 @@ export default function ActivityHero({
   ubication,
   accesibility,
   onSave,
-}: ActivityHeroProps) {
+}: ActivityTopProps) {
   return (
     <section className="border-b-2 border-gray-200">
-      
+
       <img
         src={imageSrc}
         alt={title}
