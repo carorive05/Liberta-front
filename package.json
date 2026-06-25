@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "test":"jest",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -21,6 +22,20 @@
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
+    "jest": "^30.4.2",
     "vite": "^8.0.14"
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carorive05/Liberta-front.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carorive05/Liberta-front/issues"
+  },
+  "homepage": "https://github.com/carorive05/Liberta-front#readme"
 }
