@@ -15,7 +15,7 @@ interface SidebarFiltrosProps {
   onCleanFilter: () => void;
 }
 
-export function SidebarFiltros({ filtros, onFilterChange, onCleanFilter }: SidebarFiltrosProps) {
+export function SidebarFilter({ filtros, onFilterChange, onCleanFilter }: SidebarFiltrosProps) {
   
 
   const handleGroupChange = (group: keyof FilterState, newValues: string[]) => {

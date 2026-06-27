@@ -8,6 +8,23 @@ import { List, LayoutGrid } from 'lucide-react';
 import { Cards } from "../components/Card";
 import { CardProps } from "../components/Card";
 import { Navbar } from "../components/NavBar";
+import { SidebarFilter } from "../components/SidebarFilter";
+
+type FilterName = "visual" | "motor" | "auditory";
+
+type AccessLevel = "full" | "partial" | "none";
+
+const accessibilityFilters: { name: FilterName; label: string }[] = [
+    { name: "visual", label: "Discapacidad visual" },
+    { name: "motor", label: "Discapacidad motora" },
+    { name: "auditory", label: "Discapacidad auditiva" },
+];
+
+const accessLevelFilters: { name: AccessLevel; label: string }[] = [
+    { name: "full", label: "Acceso completo" },
+    { name: "partial", label: "Acceso parcial" },
+    { name: "none", label: "Sin acceso" },
+];
 
 const cards: CardProps[] = [
     {
@@ -80,6 +97,18 @@ export default function HomeDisplay() {
 
     const [isGrid, setIsGrid] = useState(true);
 
+    const [accessibility, setAccessibility] = useState<Record<FilterName, boolean>>({
+        visual: true,
+        motor: true,
+        auditory: true,
+    });
+
+    const [accessLevel, setAccessLevel] = useState<Record<AccessLevel, boolean>>({
+        full: true,
+        partial: false,
+        none: false,
+    });
+
     return (
         <Theme>
             <Navbar />
@@ -110,36 +139,40 @@ export default function HomeDisplay() {
             </section>
 
             <section>
-                <Box p="4" style={{ backgroundColor: "#F8F9FA", minHeight: "100vh" }}>
+                <Box p="4" style={{ backgroundColor: "#f0f0f0", minHeight: "100vh" }}>
+                    <Flex gap="6" style={{ alignItems: "flex-start" }}>
+                        
+                        <div>
+                            <div className="flex justify-between p-2 pb-4">
+                                <div className="text-[#6B6B68]">
+                                    <p>47 lugares cerca de San Jose </p>
+                                </div>
 
-                    <div className="flex justify-between p-2 pb-4">
-                        <div className="text-[#6B6B68]">
-                            <p>47 lugares cerca de San Jose </p>
+                                <div className="flex justify-between gap-2">
+                                    <LayoutGrid
+                                        className={`border-2 cursor-pointer p-0.5 ${isGrid ? "bg-[#E1F5EE] border-[#1D9E75]" : "bg-white border-gray-200"}`}
+                                        color="#1D9E75"
+                                        onClick={() => setIsGrid(true)}
+                                    />
+                                    <List
+                                        className={`border-2 cursor-pointer p-0.5 ${!isGrid ? "bg-[#E1F5EE] border-[#1D9E75]" : "bg-white border-gray-200"}`}
+                                        color="#1D9E75"
+                                        onClick={() => setIsGrid(false)}
+                                    />
+                                </div>
+                            </div>
+
+                            <Grid columns={isGrid ? "2" : "1"} gap="4">
+                                {cards.map(card => (
+                                    <Cards key={card.id} horizontal={!isGrid} {...card} />
+                                ))}
+                            </Grid>
                         </div>
-
-                        <div className="flex justify-between gap-2">
-                            <LayoutGrid
-                                className={`border-2 cursor-pointer p-0.5 ${isGrid ? "bg-[#E1F5EE] border-[#1D9E75]" : "bg-white border-gray-200"}`}
-                                color="#1D9E75"
-                                onClick={() => setIsGrid(true)}
-                            />
-                            <List
-                                className={`border-2 cursor-pointer p-0.5 ${!isGrid ? "bg-[#E1F5EE] border-[#1D9E75]" : "bg-white border-gray-200"}`}
-                                color="#1D9E75"
-                                onClick={() => setIsGrid(false)}
-                            />
-                        </div>
-                    </div>
-
-                    <Grid columns={isGrid ? "2" : "1"} gap="4">
-                        {cards.map(card => (
-                            <Cards key={card.id} horizontal={!isGrid} {...card} />
-                        ))}
-                    </Grid>
-
+                    </Flex>
                 </Box>
+
             </section>
 
-        </Theme>
+        </Theme >
     )
 }

@@ -14,7 +14,7 @@ import { CardProps } from "../components/Card";
 
 
 const DISTRIBUTION: RatingDistribution[] = [
-    { stars: 5, percentage: 68 },
+    { stars: 5, percentage: 50 },
     { stars: 4, percentage: 21 },
     { stars: 3, percentage: 8 },
     { stars: 2, percentage: 3 },
