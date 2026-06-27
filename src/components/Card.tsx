@@ -1,19 +1,15 @@
-// Card Component
-// This component is used to display a card with an image and some text.
-// It uses the Radix UI library for styling and layout.
-
+// Card.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import {Card, Flex, Inset, Text } from "@radix-ui/themes";
-import { Eye, Ear, Accessibility } from "lucide-react"; //Helped by Claude IA
-//prompt: Find 5 librarys of icons and styles who match to react & tailwind.
+import { Card, Flex, Inset, Text } from "@radix-ui/themes";
+import { Eye, Ear, Accessibility } from "lucide-react"; 
 
-type TypeAccesibility = "visual" | "motor" | "auditory";
-type LevelAccesibility = "low" | "medium" | "high";
-type AccesibilityProps = Record<TypeAccesibility, LevelAccesibility>;
+type TypeAccessibility = "visual" | "motor" | "auditory";
+type LevelAccessibility = "low" | "medium" | "high";
+type AccessibilityProps = Record<TypeAccessibility, LevelAccessibility>;
 
-const accesibilityConfig: Record<TypeAccesibility, Record<LevelAccesibility, { label: string; icon: React.ElementType ; color: string }>> = {
+const accessibilityConfig: Record<TypeAccessibility, Record<LevelAccessibility, { label: string; icon: React.ElementType; color: string }>> = {
     visual: {
         high:   { label: "Visual", icon: Eye, color: "bg-[#E1F5EE] text-[#085041]" },
         medium: { label: "Visual", icon: Eye, color: "bg-[#faeeda] text-[#633806]" },
@@ -29,8 +25,7 @@ const accesibilityConfig: Record<TypeAccesibility, Record<LevelAccesibility, { l
         medium: { label: "Auditiva", icon: Ear, color: "bg-[#faeeda] text-[#633806]" },
         low:    { label: "Auditiva", icon: Ear, color: "bg-[#FCEBEB] text-[#791F1F]" },
     },
-    
-}
+};
 
 export interface CardProps { 
     id: number;
@@ -41,18 +36,16 @@ export interface CardProps {
     price: number;
     rating: number;
     horizontal?: boolean;
-    accesibility?: AccesibilityProps;
+    accessibility?: AccessibilityProps; 
     ubication: string;
     description: string;
     schedule: string;
     reservation: string;
     maxGroup: number;
-
 }
 
 export function Cards(props: CardProps) {
-
-    const { imageSrc, title, category, distance, price, rating, horizontal = false, accesibility, ubication,description, schedule,reservation,maxGroup } = props;
+    const { imageSrc, title, category, distance, price, rating, horizontal = false, accessibility, ubication, description, schedule, reservation, maxGroup } = props;
 
     const navigate = useNavigate();
 
@@ -60,26 +53,28 @@ export function Cards(props: CardProps) {
         navigate("/detail", { state: props });
     };
 
-    const accesibilityData = accesibility ? (<div className="flex gap-2 flex-wrap">
-      {(Object.entries(accesibility) as [TypeAccesibility, LevelAccesibility][]).map(
-        ([type, level]) => {
-          const config = accesibilityConfig[type][level];
-          return (
-            <span
-              key={type}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${config.color}`}
-            >
-              <config.icon size={14} />
-              {config.label}
-            </span>
-          );
-        }
-      )}
-    </div>) : null;
+    const accessibilityData = accessibility ? (
+        <div className="flex gap-2 flex-wrap">
+            {(Object.entries(accessibility) as [TypeAccessibility, LevelAccessibility][]).map(
+                ([type, level]) => {
+                    const config = accessibilityConfig[type]?.[level];
+                    if (!config) return null;
+                    return (
+                        <span
+                            key={type}
+                            className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${config.color}`}
+                        >
+                            <config.icon size={14} />
+                            {config.label}
+                        </span>
+                    );
+                }
+            )}
+        </div>
+    ) : null;
 
     if (horizontal) {
         return (
-            //carta guardados
             <Card
                 size="2"
                 style={{
@@ -90,8 +85,8 @@ export function Cards(props: CardProps) {
                     display: "flex",
                     flexDirection: "row",
                 }}
-
-                onClick={handleClick} className="cursor-pointer"
+                onClick={handleClick} 
+                className="cursor-pointer"
             >
                 <Inset side="left" clip="padding-box">
                     <img
@@ -113,7 +108,7 @@ export function Cards(props: CardProps) {
                     </div>
                     <Text className="text-lg font-bold">{title}</Text>
 
-                        {accesibilityData}
+                    {accessibilityData}
 
                     <div className="flex items-center justify-between">
                         <Text className="text-xs text-[#6B6B68]">{distance} km</Text>
@@ -125,17 +120,16 @@ export function Cards(props: CardProps) {
     }
 
     return (
-        //carta home 
         <Card
             size="2"
             style={{
-                width: "500px", //600px segun dise;o
+                width: "500px", 
                 overflow: "hidden",
                 backgroundColor: "white",
                 borderRadius: "12px",
             }}
-
-            onClick={handleClick} className="cursor-pointer"
+            onClick={handleClick} 
+            className="cursor-pointer"
         >
             <Inset side="top" clip="padding-box">
                 <img
@@ -157,7 +151,7 @@ export function Cards(props: CardProps) {
                 </div>
                 <Text className="text-lg font-bold">{title}</Text>
 
-                   {accesibilityData}
+                {accessibilityData}
 
                 <div className="flex items-center justify-between">
                     <Text className="text-xs text-gray-800">{distance} km</Text>
