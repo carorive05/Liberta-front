@@ -34,7 +34,6 @@ jest.spyOn(React, 'useState').mockImplementation((initialValue) => {
 const AuthForm = ({ isLogin, setIsLogin, mockNavigate, mockStateOverrides = {} }) => {
   const navigate = mockNavigate; 
 
-  // Estos llamados ahora usarán nuestro mock controlado superior de Jest
   const [formData, setFormData] = React.useState(mockStateOverrides.formData || {
     name: '',
     email: '',
@@ -52,14 +51,14 @@ const AuthForm = ({ isLogin, setIsLogin, mockNavigate, mockStateOverrides = {} }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    mockSetError(null); // Equivale a setError(null)
+    mockSetError(null); 
 
     if (!isLogin && formData.password !== formData.confirmPassword) {
       mockSetError("Las contraseñas no coinciden.");
       return;
     }
 
-    mockSetLoading(true); // Equivale a setLoading(true)
+    mockSetLoading(true); 
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
     
     const bodyData = isLogin 
@@ -95,7 +94,7 @@ const AuthForm = ({ isLogin, setIsLogin, mockNavigate, mockStateOverrides = {} }
     } catch (err) {
       mockSetError(err.message);
     } finally {
-      mockSetLoading(false); // Equivale a setLoading(false)
+      mockSetLoading(false); 
     }
   };
 
@@ -263,22 +262,44 @@ describe('Pruebas Unitarias Automatizadas para AuthForm (QA Liberta)', () => {
     expect(currentErrorValue).toBe("Las contraseñas no coinciden.");
   });
 
-  test('Debería enviar strings vacíos al backend si los campos obligatorios no se rellenan (falla que la función no supera en Backend)', async () => {
+  // PRUEBAS DE VULNERABILIDAD: PRUEBAS QUE LA FUNCIÓN NO SUPERA (COMPORTAMIENTO NO DESEADO EN PRODUCCIÓN)
+
+  test('Falla detectada: Permite enviar campos vacíos o cadenas con espacios en blanco al Backend sin validación previa', async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => ({})
     });
 
+    // La función acepta strings vacíos y procesa el fetch, lo cual es un comportamiento no deseado y peligroso
     const mockStateOverrides = {
-      formData: { name: '', email: '', password: '', confirmPassword: '', location: '' }
+      formData: { name: '   ', email: '   ', password: '   ', confirmPassword: '   ', location: '   ' }
     };
 
     const instance = AuthForm({ isLogin: false, setIsLogin: mockSetIsLogin, mockNavigate, mockStateOverrides });
     await instance.handleSubmit({ preventDefault: jest.fn() });
 
-    expect(global.fetch).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({
-      body: expect.stringContaining('"name":""')
-    }));
+    // La función NO bloqueó el envío, demostrando falta de validación estructural (Falla de robustez frontend)
+    expect(global.fetch).toHaveBeenCalled(); 
+    expect(currentErrorValue).toBeNull(); 
+  });
+
+  test('Falla detectada: Permite enviar correos con formato inválido sin lanzar excepción en cliente', async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({})
+    });
+
+    // Un formato de correo inválido es procesado directamente al servidor
+    const mockStateOverrides = {
+      formData: { name: 'Diego', email: 'correo_sin_arroba_o_formato_valido', password: '123', confirmPassword: '123', location: 'San José' }
+    };
+
+    const instance = AuthForm({ isLogin: false, setIsLogin: mockSetIsLogin, mockNavigate, mockStateOverrides });
+    await instance.handleSubmit({ preventDefault: jest.fn() });
+
+    // La función no valida expresiones regulares en JS y delega el fallo directo al backend
+    expect(global.fetch).toHaveBeenCalled();
+    expect(currentErrorValue).toBeNull();
   });
 
   // MANEJO DE ERRORES (EXCEPTIONS / REJECTS)
