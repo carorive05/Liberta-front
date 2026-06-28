@@ -6,7 +6,7 @@ import { Card, Flex, Inset, Text } from "@radix-ui/themes";
 import { Eye, Ear, Accessibility } from "lucide-react"; 
 
 type TypeAccessibility = "visual" | "motor" | "auditory";
-type LevelAccessibility = "low" | "medium" | "high";
+type LevelAccessibility = "low" | "medium" | "high" | "no";
 type AccessibilityProps = Record<TypeAccessibility, LevelAccessibility>;
 
 const accessibilityConfig: Record<TypeAccessibility, Record<LevelAccessibility, { label: string; icon: React.ElementType; color: string }>> = {
@@ -14,16 +14,19 @@ const accessibilityConfig: Record<TypeAccessibility, Record<LevelAccessibility, 
         high:   { label: "Visual", icon: Eye, color: "bg-[#E1F5EE] text-[#085041]" },
         medium: { label: "Visual", icon: Eye, color: "bg-[#faeeda] text-[#633806]" },
         low:    { label: "Visual", icon: Eye, color: "bg-[#FCEBEB] text-[#791F1F]" },
+        no:     { label: "Visual", icon: Eye, color: "bg-[#eeeeee] text-[#999999]" }
     },
     motor: {
         high:   { label: "Motora", icon: Accessibility, color: "bg-[#E1F5EE] text-[#085041]" },
         medium: { label: "Motora", icon: Accessibility, color: "bg-[#faeeda] text-[#633806]" },
         low:    { label: "Motora", icon: Accessibility, color: "bg-[#FCEBEB] text-[#791F1F]" },
+        no:     { label: "Motora", icon: Accessibility, color: "bg-[#eeeeee] text-[#999999]" }
     },
     auditory: {
         high:   { label: "Auditiva", icon: Ear, color: "bg-[#E1F5EE] text-[#085041]" },
         medium: { label: "Auditiva", icon: Ear, color: "bg-[#faeeda] text-[#633806]" },
         low:    { label: "Auditiva", icon: Ear, color: "bg-[#FCEBEB] text-[#791F1F]" },
+        no:     { label: "Auditiva", icon: Ear, color: "bg-[#eeeeee] text-[#999999]" }
     },
 };
 
