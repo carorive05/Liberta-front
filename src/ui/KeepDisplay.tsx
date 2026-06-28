@@ -1,79 +1,65 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import { Theme, Box, Flex } from "@radix-ui/themes";
-
 import { Navbar } from "../components/NavBar";
 import { Cards } from "../components/Card";
 import { CardProps } from "../components/Card";
-
-const cards: CardProps[] = [
-    {
-        id: 1,
-        imageSrc: "https://images.pexels.com/photos/37001452/pexels-photo-37001452.jpeg",
-        title: "Parque Nacional Volcán Poás",
-        category: "Naturaleza",
-        distance: 12.5,
-        price: 15000,
-        rating: 4.5,
-        //horizontal: false,
-        ubication: "Alajuela",
-        description: "El Volcán Poás es uno de los volcanes más activos de Costa Rica. Su cráter principal alberga un lago de aguas ácidas único en el mundo, rodeado de una vegetación exuberante.",
-        schedule: "8:00 am – 3:30 pm",
-        reservation: "Con anticipación",
-        maxGroup: 15,
-        accesibility: { visual: "high", motor: "medium", auditory: "low" }
-    },
-    {
-        id: 2,
-        imageSrc: "https://images.pexels.com/photos/37001452/pexels-photo-37001452.jpeg",
-        title: "Playa Manuel Antonio",
-        category: "Naturaleza",
-        distance: 150,
-        price: 12000,
-        rating: 3.5,
-        //horizontal: false,
-        ubication: "Alajuela",
-        description: "El Volcán Poás es uno de los volcanes más activos de Costa Rica. Su cráter principal alberga un lago de aguas ácidas único en el mundo, rodeado de una vegetación exuberante.",
-        schedule: "8:00 am – 3:30 pm",
-        reservation: "Con anticipación",
-        maxGroup: 15,
-        accesibility: { visual: "high", motor: "medium", auditory: "low" }
-    },
-    {
-        id: 3,
-        imageSrc: "https://images.pexels.com/photos/37001452/pexels-photo-37001452.jpeg",
-        title: "Parque Nacional Volcán Rincon de la vieja",
-        category: "Naturaleza",
-        distance: 250,
-        price: 2000,
-        rating: 4.5,
-        //horizontal: false,
-        ubication: "Alajuela",
-        description: "El Volcán Poás es uno de los volcanes más activos de Costa Rica. Su cráter principal alberga un lago de aguas ácidas único en el mundo, rodeado de una vegetación exuberante.",
-        schedule: "8:00 am – 3:30 pm",
-        reservation: "Con anticipación",
-        maxGroup: 15,
-        accesibility: { visual: "high", motor: "high", auditory: "low" }
-    },
-    {
-        id: 4,
-        imageSrc: "https://images.pexels.com/photos/37001452/pexels-photo-37001452.jpeg",
-        title: "Playa Calzon de pobre",
-        category: "Naturaleza",
-        distance: 150,
-        price: 10000,
-        rating: 2.5,
-        //horizontal: false,
-        ubication: "Alajuela",
-        description: "El Volcán Poás es uno de los volcanes más activos de Costa Rica. Su cráter principal alberga un lago de aguas ácidas único en el mundo, rodeado de una vegetación exuberante.",
-        schedule: "8:00 am – 3:30 pm",
-        reservation: "Con anticipación",
-        maxGroup: 15,
-        accesibility: { visual: "low", motor: "low", auditory: "low" }
-    },
-];
+import { tokenStorage } from "../utils/token"; 
 
 export default function KeepDisplay() {
+    const [savedPlaces, setSavedPlaces] = useState<CardProps[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    
+    const userRaw = tokenStorage.getUser();
+    const currentUserId = userRaw ? JSON.parse(userRaw).id : null;
+
+    useEffect(() => {
+        if (!currentUserId) {
+            setLoading(false);
+            return;
+        }
+
+        const fetchSavedPlaces = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/places/saved/${currentUserId}`, {
+                    headers: {
+                        "Authorization": `Bearer ${tokenStorage.getToken()}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+
+                    if (result.ok && result.data) {
+                        const formattedCards = result.data.map((place: any) => ({
+                            id: place.id,
+                            title: place.title,
+                            description: place.description,
+                            imageSrc: place.imageSrc, 
+                            category: place.category,
+                            distance: place.distance,
+                            rating: place.rating,
+                            ubication: place.location,
+                            accessibility: place.accessibility,
+                            price: place.price,
+                            schedule: place.scheduled,
+                            reservation: place.reservation,
+                            maxGroup: place.maxGroup
+                        }));
+
+                        setSavedPlaces(formattedCards);
+                    }
+                }
+            } catch (error) {
+                console.error("Error al traer las actividades guardadas:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSavedPlaces();
+    }, [currentUserId]);
+
     return (
         <Theme>
             <Navbar />
@@ -83,15 +69,18 @@ export default function KeepDisplay() {
                     <p className="text-gray-600">Tus destinos favoritos para explorar Costa Rica de manera accesible </p>
                 </div>
 
-                <Flex direction="column" gap="4">
-                    {cards.map(card => (
-                        <Cards key={card.id} horizontal={true} {...card} />
-                    ))}
-                </Flex>
+                {loading ? (
+                    <p className="text-gray-500 text-sm mt-4">Cargando tus actividades favoritas...</p>
+                ) : savedPlaces.length === 0 ? (
+                    <p className="text-gray-500 text-sm mt-4">No tienes actividades guardadas todavía.</p>
+                ) : (
+                    <Flex direction="column" gap="4">
+                        {savedPlaces.map(place => (
+                            <Cards key={place.id} horizontal={true} {...place} />
+                        ))}
+                    </Flex>
+                )}
             </Box>
-
         </Theme>
-
-    )
-
+    );
 }

@@ -14,6 +14,7 @@ const accesibilityConfig: Record<
     high: { label: "Visual", levelLabel: "Acceso completo", icon: Eye, color: "bg-[#E1F5EE] text-[#085041]" },
     medium: { label: "Visual", levelLabel: "Acceso parcial", icon: Eye, color: "bg-[#faeeda] text-[#633806]" },
     low: { label: "Visual", levelLabel: "Sin acceso", icon: Eye, color: "bg-[#FCEBEB] text-[#791F1F]" },
+    
   },
   motor: {
     high: { label: "Motora", levelLabel: "Acceso completo", icon: Accessibility, color: "bg-[#E1F5EE] text-[#085041]" },
@@ -28,6 +29,7 @@ const accesibilityConfig: Record<
 };
 
 interface ActivityTopProps {
+  id: number;
   imageSrc: string;
   title: string;
   category: string;
@@ -35,6 +37,8 @@ interface ActivityTopProps {
   rating: number;
   ubication: string;
   accesibility?: AccesibilityProps;
+  isSaved?: boolean;      
+  loading?: boolean;      
   onSave?: () => void;
 }
 
@@ -46,6 +50,8 @@ export default function ActivityTop({
   rating,
   ubication,
   accesibility,
+  isSaved = false,  
+  loading = false,  
   onSave,
 }: ActivityTopProps) {
   return (
@@ -91,11 +97,11 @@ export default function ActivityTop({
           )}
 
           <button
-            onClick={onSave}
-            className="flex gap-2 items-center bg-[#1D9E75] px-4 py-2 rounded-xl text-white text-sm font-medium"
+            onClick={onSave} disabled={loading}
+            className="flex gap-2 items-center bg-[#1D9E75] px-4 py-2 rounded-xl text-white text-sm font-medium disabled:opacity-50"
           >
-            <Bookmark size={16} color="#ffffff" />
-            Guardar
+           <Bookmark size={16} color="#ffffff" fill={isSaved ? "#ffffff" : "none"} />
+            {loading ? "Procesando..." : isSaved ? "Guardado" : "Guardar"}
           </button>
         </div>
       </div>

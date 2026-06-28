@@ -1,7 +1,7 @@
 import React from "react";
-
+import { tokenStorage } from "../utils/token";
 //className = "flex flex-col justify-self-center-safe items-center gap-4 text-center pt-3"
-
+import { useState, useEffect } from "react";
 import { Card, Flex, Inset, Text } from "@radix-ui/themes";
 import { Eye, Ear, Accessibility, CircleDollarSign, Clock, Calendar, UsersRound, Bookmark } from "lucide-react"; //Helped by Claude IA
 //prompt: Find 5 librarys of icons and styles who match to react & tailwind.
@@ -29,6 +29,7 @@ const accesibilityConfig: Record<TypeAccesibility, Record<LevelAccesibility, { l
 };
 
 interface CardProps {
+    id: number; 
     imageSrc: string;
     title: string;
     category: string;
@@ -42,7 +43,67 @@ interface CardProps {
 
 export function CardDetail(props: CardProps) {
 
-    const { imageSrc, title, category, distance, price, rating, ubication, accesibility } = props;
+    const { id, imageSrc, title, category, distance, price, rating, ubication, accesibility } = props;
+
+
+    const [isSaved, setIsSaved] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    // obtener el ID del usuario logueado 
+    const userRaw = tokenStorage.getUser();
+    const currentUserId = userRaw ? JSON.parse(userRaw).id : null;
+
+    // opcional: Verificar si ya estaba guardada al cargar los detalles
+    useEffect(() => {
+        if (!currentUserId || !id) return;
+
+        const checkSavedStatus = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/activities/saved/${currentUserId}/${id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsSaved(data.isSaved); 
+                }
+            } catch (error) {
+                console.error("Error validando estado de guardado:", error);
+            }
+        };
+
+        checkSavedStatus();
+    }, [currentUserId, id]);
+
+    // Manejador del click del boton guardar
+    const handleSaveToggle = async () => {
+        if (!currentUserId) {
+            alert("Debes iniciar sesión para guardar actividades en Liberta.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await fetch(`http://localhost:3000/api/activities/saved`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${tokenStorage.getToken()}` // Enviamos el token por si el endpoint es protegido
+                },
+                body: JSON.stringify({
+                    userId: currentUserId,
+                    activityId: id,
+                }),
+            });
+
+            if (response.ok) {
+                setIsSaved(!isSaved);
+            } else {
+                console.error("Error al procesar la solicitud en el servidor");
+            }
+        } catch (error) {
+            console.error("Error de red al intentar guardar:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const accesibilityData = accesibility ? (<div className="flex gap-2 flex-wrap">
         {(Object.entries(accesibility) as [TypeAccesibility, LevelAccesibility][]).map(
@@ -96,9 +157,9 @@ export function CardDetail(props: CardProps) {
                         </div>
                         
 
-                        <button className="flex gap-4 bg-[#1D9E75] p-5 rounded-xl text-white">
-                            <Bookmark color="#ffffff"/>
-                            Guardar
+                        <button onClick={handleSaveToggle} disabled={loading} className="flex gap-4 bg-[#1D9E75] p-5 rounded-xl text-white">
+                            <Bookmark color="#ffffff" fill={isSaved ? "#ffffff" : "none"}/>
+                           {loading ? "Procesando..." : isSaved ? "Guardado" : "Guardar"}
                         </button>
                     </div>
                 </Flex>

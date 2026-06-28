@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { tokenStorage } from "../utils/token";
 import { useNavigate } from 'react-router-dom';
 
 interface AuthFormProps {
@@ -59,13 +60,15 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isLogin, setIsLogin }) => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || 'Error en la autenticación.');
 
+      tokenStorage.setToken(data.token);
+      tokenStorage.setUser(JSON.stringify(data.user));
+
       if (isLogin) {
         localStorage.setItem('liberta_token', data.token);
         navigate('/'); 
       } else {
         alert('¡Cuenta creada con éxito! Ahora puedes iniciar sesión.');
         
-        // Mueve el formulario a modo Login de forma automática y fluida
         setIsLogin(true); 
       }
       
