@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Bookmark } from "lucide-react";
+import { Bookmark, MapPin, Map, Tag } from "lucide-react";
 import { Eye, Ear, Accessibility } from "lucide-react";
 
 type TypeAccesibility = "visual" | "motor" | "auditory";
@@ -70,10 +70,10 @@ export default function ActivityTop({
       <div className="flex flex-col p-3 gap-2">
         <p className="text-lg font-bold">{title}</p>
 
-        <div className="flex items-center gap-5">
-          <span className="text-sm text-gray-800">{ubication}</span>
-          <span className="text-sm text-gray-800">{distance} km</span>
-          <span className="text-sm text-gray-800">{category}</span>
+        <div className="flex items-center gap-5 mb-2">
+          <span className="text-sm text-gray-800 flex"> <MapPin className={'p-0.5'}/>{ubication}</span>
+          <span className="text-sm text-gray-800 flex"> <Map className={'p-0.5'} /> {distance} km</span>
+          <span className="text-sm text-gray-800 flex"> <Tag className={'p-0.5'}/> {category}</span>
           <span className="text-sm text-gray-800">⭐ {rating}</span>
         </div>
 

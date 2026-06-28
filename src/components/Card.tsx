@@ -3,7 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Card, Flex, Inset, Text } from "@radix-ui/themes";
-import { Eye, Ear, Accessibility } from "lucide-react"; 
+import { Eye, Ear, Accessibility } from "lucide-react";
+import { Tag, MapPin } from "lucide-react";
 
 type TypeAccessibility = "visual" | "motor" | "auditory";
 type LevelAccessibility = "low" | "medium" | "high" | "no";
@@ -11,26 +12,26 @@ type AccessibilityProps = Record<TypeAccessibility, LevelAccessibility>;
 
 const accessibilityConfig: Record<TypeAccessibility, Record<LevelAccessibility, { label: string; icon: React.ElementType; color: string }>> = {
     visual: {
-        high:   { label: "Visual", icon: Eye, color: "bg-[#E1F5EE] text-[#085041]" },
+        high: { label: "Visual", icon: Eye, color: "bg-[#E1F5EE] text-[#085041]" },
         medium: { label: "Visual", icon: Eye, color: "bg-[#faeeda] text-[#633806]" },
-        low:    { label: "Visual", icon: Eye, color: "bg-[#FCEBEB] text-[#791F1F]" },
-        no:     { label: "Visual", icon: Eye, color: "bg-[#eeeeee] text-[#999999]" }
+        low: { label: "Visual", icon: Eye, color: "bg-[#FCEBEB] text-[#791F1F]" },
+        no: { label: "Visual", icon: Eye, color: "bg-[#eeeeee] text-[#999999]" }
     },
     motor: {
-        high:   { label: "Motora", icon: Accessibility, color: "bg-[#E1F5EE] text-[#085041]" },
+        high: { label: "Motora", icon: Accessibility, color: "bg-[#E1F5EE] text-[#085041]" },
         medium: { label: "Motora", icon: Accessibility, color: "bg-[#faeeda] text-[#633806]" },
-        low:    { label: "Motora", icon: Accessibility, color: "bg-[#FCEBEB] text-[#791F1F]" },
-        no:     { label: "Motora", icon: Accessibility, color: "bg-[#eeeeee] text-[#999999]" }
+        low: { label: "Motora", icon: Accessibility, color: "bg-[#FCEBEB] text-[#791F1F]" },
+        no: { label: "Motora", icon: Accessibility, color: "bg-[#eeeeee] text-[#999999]" }
     },
     auditory: {
-        high:   { label: "Auditiva", icon: Ear, color: "bg-[#E1F5EE] text-[#085041]" },
+        high: { label: "Auditiva", icon: Ear, color: "bg-[#E1F5EE] text-[#085041]" },
         medium: { label: "Auditiva", icon: Ear, color: "bg-[#faeeda] text-[#633806]" },
-        low:    { label: "Auditiva", icon: Ear, color: "bg-[#FCEBEB] text-[#791F1F]" },
-        no:     { label: "Auditiva", icon: Ear, color: "bg-[#eeeeee] text-[#999999]" }
+        low: { label: "Auditiva", icon: Ear, color: "bg-[#FCEBEB] text-[#791F1F]" },
+        no: { label: "Auditiva", icon: Ear, color: "bg-[#eeeeee] text-[#999999]" }
     },
 };
 
-export interface CardProps { 
+export interface CardProps {
     id: number;
     imageSrc: string;
     title: string;
@@ -39,7 +40,7 @@ export interface CardProps {
     price: number;
     rating: number;
     horizontal?: boolean;
-    accessibility?: AccessibilityProps; 
+    accessibility?: AccessibilityProps;
     ubication: string;
     description: string;
     schedule: string;
@@ -78,6 +79,7 @@ export function Cards(props: CardProps) {
 
     if (horizontal) {
         return (
+            //keep
             <Card
                 size="2"
                 style={{
@@ -88,7 +90,7 @@ export function Cards(props: CardProps) {
                     display: "flex",
                     flexDirection: "row",
                 }}
-                onClick={handleClick} 
+                onClick={handleClick}
                 className="cursor-pointer"
             >
                 <Inset side="left" clip="padding-box">
@@ -106,7 +108,7 @@ export function Cards(props: CardProps) {
 
                 <Flex className="flex-col p-2 pl-4 gap-4 w-full">
                     <div className="flex items-center justify-between">
-                        <Text className="text-sm text-[#6B6B68]">{category}</Text>
+                        <Text className="text-sm text-[#6B6B68]"> <Tag className={'p-0.5'} /> {category}</Text>
                         <Text className="text-sm text-[#6B6B68]">⭐ {rating}</Text>
                     </div>
                     <Text className="text-lg font-bold">{title}</Text>
@@ -114,7 +116,7 @@ export function Cards(props: CardProps) {
                     {accessibilityData}
 
                     <div className="flex items-center justify-between">
-                        <Text className="text-xs text-[#6B6B68]">{distance} km</Text>
+                        <Text className="text-xs text-[#6B6B68]"> <MapPin className={'p-0.5'} /> {distance} km</Text>
                         <Text className="text-xs text-[#6B6B68]">₡{price}/ persona</Text>
                     </div>
                 </Flex>
@@ -124,14 +126,15 @@ export function Cards(props: CardProps) {
 
     return (
         <Card
+            //home
             size="2"
             style={{
-                width: "500px", 
+                width: "500px",
                 overflow: "hidden",
                 backgroundColor: "white",
                 borderRadius: "12px",
             }}
-            onClick={handleClick} 
+            onClick={handleClick}
             className="cursor-pointer"
         >
             <Inset side="top" clip="padding-box">
@@ -149,7 +152,7 @@ export function Cards(props: CardProps) {
 
             <Flex className="flex-col p-3 gap-2">
                 <div className="flex items-center justify-between">
-                    <Text className="text-sm text-gray-800">{category}</Text>
+                    <Text className="text-sm text-gray-800 flex items-center"> <Tag className={'p-0.5'} /> {category}</Text>
                     <Text className="text-sm text-gray-800">⭐ {rating}</Text>
                 </div>
                 <Text className="text-lg font-bold">{title}</Text>
@@ -157,7 +160,7 @@ export function Cards(props: CardProps) {
                 {accessibilityData}
 
                 <div className="flex items-center justify-between">
-                    <Text className="text-xs text-gray-800">{distance} km</Text>
+                    <Text className="text-xs text-gray-800 flex items-center"> <MapPin className={'p-0.5'}/> {distance} km</Text>
                     <Text className="text-xs text-gray-800">₡{price}/ persona</Text>
                 </div>
             </Flex>
