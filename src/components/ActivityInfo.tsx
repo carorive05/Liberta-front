@@ -38,10 +38,10 @@ export default function ActivityInfo({
       <p className="text-sm text-gray-600">{description}</p>
 
       <div className="grid grid-cols-2 gap-3 mt-3 mb-2 text-[#6B6B68]">
-        <InfoCard icon={CircleDollarSign} label="Precio"       value={`₡${price.toLocaleString()} / persona`} />
-        <InfoCard icon={Clock}           label="Horario"       value={schedule} />
-        <InfoCard icon={Calendar}        label="Reserva"       value={reservation} />
-        <InfoCard icon={UsersRound}      label="Grupo máx."   value={`${maxGroup} personas`} />
+        <InfoCard icon={CircleDollarSign} label="Precio"        value={`₡${price.toLocaleString()} / persona`} />
+        <InfoCard icon={Clock}            label="Horario"       value={schedule} />
+        <InfoCard icon={Calendar}         label="Reserva"       value={reservation} />
+        <InfoCard icon={UsersRound}       label="Grupo máx."    value={`${maxGroup} personas`} />
       </div>
     </section>
   );

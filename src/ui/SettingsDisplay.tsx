@@ -1,12 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Theme, Box, Grid } from "@radix-ui/themes";
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, LogOut, CircleQuestionMark, Clock, LayoutGrid, Settings, SquarePen } from 'lucide-react';
 
 import { Navbar } from "../components/NavBar";
 
 export default function SettingslDisplay() {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/login");
+    };
+
     return (
         <Theme>
             <Navbar />
@@ -21,7 +29,7 @@ export default function SettingslDisplay() {
 
                         <div className="flex flex-col gap-4 p-6">
                             <div>
-                                <h2>Ana Lopez</h2>
+                                <h2>{/*user.name */} Ana Lopez</h2>
                                 <p className="text-[#6B6B68]">ana.lopez@email.com</p>
                             </div>
 
@@ -41,7 +49,7 @@ export default function SettingslDisplay() {
                             </div>
                         </div>
 
-                        <button className="mt-5 mr-6 bg-[#E1F5EE] border-2 border-[#1D9E75] rounded-xl h-15 w-25">Editar perfil</button>
+                        {/*<button className="mt-5 mr-6 bg-[#E1F5EE] border-2 border-[#1D9E75] rounded-xl h-15 w-25">Editar perfil</button> */}
 
                     </section>
 
@@ -51,140 +59,125 @@ export default function SettingslDisplay() {
                         <Grid columns="1" className="gap-2">
 
                             <Disclosure>
-                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3">
+
+                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3 border-[#1D9E75] bg-[#E1F5EE] rounded-xl">
                                     <div className="flex">
-                                        <p className="p-4 ">icon</p>
-                                        <div className="flex flex-col text-left">
-                                            Editar perfil
-                                            <span>Actualiza tu informacion personal</span>
+                                        <p className="p-4 "><SquarePen color="#1D9E75"/></p>
+                                        <div className="flex flex-col text-left font-black">
+                                            <p className="text-[#085041]"> Editar perfil</p>
+                                            <span className="font-normal">Actualiza tu informacion personal</span>
                                         </div>
                                     </div>
-
                                     <ChevronRight className="w-5 mt-3 group-data-open:rotate-90" />
-
                                 </DisclosureButton>
 
-                                <DisclosurePanel>No</DisclosurePanel>
+                                <DisclosurePanel className="gap-2 pl-4 pr-4">No
+
+                                </DisclosurePanel>
 
                             </Disclosure>
 
                             <Disclosure>
-                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3">
+
+                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3 border-[#1D9E75] bg-[#E1F5EE] rounded-xl">
                                     <div className="flex">
-                                        <p className="p-4 ">icon</p>
-                                        <div className="flex flex-col text-left">
-                                            Configuracion de accesibilidad
-                                            <span>Personalina tu experiencia</span>
+                                        <p className="p-4 "><Settings color="#1D9E75" /></p>
+                                        <div className="flex flex-col text-left font-black">
+                                           <p className="text-[#085041]">Configuracion de accesibilidad</p>
+                                            <span className="font-normal">Personalina tu experiencia</span>
                                         </div>
                                     </div>
-
                                     <ChevronRight className="w-5 mt-3 group-data-open:rotate-90" />
-
                                 </DisclosureButton>
 
-                                <DisclosurePanel>No</DisclosurePanel>
+                                <DisclosurePanel className="gap-2 pl-4 pr-4">No
+
+                                </DisclosurePanel>
 
                             </Disclosure>
 
                             <Disclosure>
-                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3">
+
+                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3 border-[#1D9E75] bg-[#E1F5EE] rounded-xl">
                                     <div className="flex">
-                                        <p className="p-4 ">icon</p>
-                                        <div className="flex flex-col text-left">
-                                            Mis preferencias
-                                            <span>Gestiona tus esperiencias de viaje</span>
+                                        <p className="p-4 "><LayoutGrid color="#1D9E75"/></p>
+                                        <div className="flex flex-col text-left font-black">
+                                            <p className="text-[#085041]">Privacidad y datos</p>
+                                            <span className="font-normal">Controla tu informacion</span>
                                         </div>
                                     </div>
-
                                     <ChevronRight className="w-5 mt-3 group-data-open:rotate-90" />
-
                                 </DisclosureButton>
 
-                                <DisclosurePanel>No</DisclosurePanel>
+                                <DisclosurePanel className="gap-2 pl-4 pr-4">No
+
+                                </DisclosurePanel>
 
                             </Disclosure>
 
                             <Disclosure>
-                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3">
+                                
+                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3 border-[#1D9E75] bg-[#E1F5EE] rounded-xl">
                                     <div className="flex">
-                                        <p className="p-4 ">icon</p>
-                                        <div className="flex flex-col text-left">
-                                            Privacidad y datos
-                                            <span>Controla tu informacion</span>
+                                        <p className="p-4 "><Clock color="#1D9E75"/></p>
+                                        <div className="flex flex-col text-left font-black">
+                                            <p className="text-[#085041]"> Historial de actividades </p>
+                                            <span className="font-normal">Revisa tus actividades pasadas</span>
                                         </div>
                                     </div>
-
                                     <ChevronRight className="w-5 mt-3 group-data-open:rotate-90" />
-
                                 </DisclosureButton>
 
-                                <DisclosurePanel>No</DisclosurePanel>
+                                <DisclosurePanel className="gap-2 pl-4 pr-4">No
+
+                                </DisclosurePanel>
 
                             </Disclosure>
 
                             <Disclosure>
-                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3">
+
+                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3 border-[#1D9E75] bg-[#E1F5EE] rounded-xl">
                                     <div className="flex">
-                                        <p className="p-4 ">icon</p>
-                                        <div className="flex flex-col text-left">
-                                            Historial de actividades
-                                            <span>Revisa tus actividades pasadas</span>
+                                        <p className="p-4 "><CircleQuestionMark color="#1D9E75"/></p>
+                                        <div className="flex flex-col text-left font-black">
+                                            <p className="text-[#085041]"> Ayuda y soporte </p>
+                                            <span className="font-normal">Obten ayuda cuando la necesites</span>
                                         </div>
                                     </div>
-
                                     <ChevronRight className="w-5 mt-3 group-data-open:rotate-90" />
-
                                 </DisclosureButton>
 
-                                <DisclosurePanel>No</DisclosurePanel>
+                                <DisclosurePanel className="gap-2 pl-4 pr-4">
+                                    <p>Para ayuda o soporte tecnico puedes contactar</p>
+                                    <p>Correo electronico: soporte@liberta.com</p>
+                                </DisclosurePanel>
 
                             </Disclosure>
 
                             <Disclosure>
-                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3">
+
+                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3 border-[#791F1F] bg-[#FCEBEB] rounded-xl">
                                     <div className="flex">
-                                        <p className="p-4 ">icon</p>
-                                        <div className="flex flex-col text-left">
-                                            Ayuda y soport
-                                            <span>Obten ayuda cuando la necesites</span>
+                                        <p className="p-4 "><LogOut color="#791F1F"/></p>
+                                        <div className="flex flex-col text-left font-black">
+                                            <p className="text-[#791F1F]">Cerrar sesion </p>
+                                            <span className="font-normal">Salir de tu cuenta</span>
                                         </div>
                                     </div>
-
                                     <ChevronRight className="w-5 mt-3 group-data-open:rotate-90" />
-
                                 </DisclosureButton>
 
-                                <DisclosurePanel>No</DisclosurePanel>
-
-                            </Disclosure>
-
-                            <Disclosure>
-                                <DisclosureButton className="flex justify-between group gap-2 border-2 w-full p-3">
-                                    <div className="flex">
-                                        <p className="p-4 ">icon</p>
-                                        <div className="flex flex-col text-left">
-                                            Cerrar sesion
-                                            <span>Salir de tu cuenta</span>
-                                        </div>
-                                    </div>
-
-                                    <ChevronRight className="w-5 mt-3 group-data-open:rotate-90" />
-
-                                </DisclosureButton>
-
-                                <DisclosurePanel>No</DisclosurePanel>
+                                <DisclosurePanel className="gap-2 pl-4 pr-4">
+                                    <p className="mb-2">Seguro que quieres cerrar sesion?</p>
+                                    <button onClick={handleClick} className="border-2 w-full p-3 border-[#791F1F] bg-[#FCEBEB] rounded-xl">Si cerrar sesion </button>
+                                </DisclosurePanel>
 
                             </Disclosure>
 
                         </Grid>
-
                     </section>
-
                 </div>
-
             </Box>
-
         </Theme>
-
     )
 }
